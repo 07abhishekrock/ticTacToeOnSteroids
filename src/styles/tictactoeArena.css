@@ -1,0 +1,8 @@
+div.tic-tac-toe-arena{
+     margin-top:7em;
+     opacity:0;
+     animation:pop-in 0.2s ease-out both;
+     z-index:1;
+     position:relative;
+}
+

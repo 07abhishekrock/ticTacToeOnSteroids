@@ -1,0 +1,114 @@
+*{
+     --splash-width : 49%;
+}
+
+
+div.landing-screen-with-splash{
+     display:flex;
+     justify-content: space-between;
+     min-height:100vh;
+}
+div.landing-screen-with-splash div.landing-screen-with-splash__splash{
+     width:var(--splash-width);
+     display:flex;
+     align-items:center;
+     justify-content:flex-end;
+     flex-flow:column;
+     background-color:var(--yellow-bright-bg);
+     padding-bottom:50px;
+}
+div.landing-screen-with-splash div.landing-screen-with-splash__content{
+     width:var(--splash-width);
+     flex-shrink:0;
+     background-color:var(--blue-bright-bg);
+}
+
+.splash-heading{
+     margin:0px;
+     margin-top:2em;
+     font-size:2.5em;
+}
+
+.splash-heading span{
+     display:block;
+     margin-top:0.3em;
+     margin-bottom:0px;
+     text-align:center;
+}
+
+.splash-heading span.splash-heading__first-line{
+     color:white;
+}
+
+.splash-heading span.splash-heading__first-line i{
+     font-style:normal;
+     color:var(--red-bright);
+}
+
+.splash-heading span.splash-heading__second-line{
+     color:white;
+     font-size:smaller;
+}
+
+.splash-heading span.splash-heading__third-line{
+     color:var(--blue-dodger-bg);
+}
+
+/* styles for landing screen components */
+
+
+h1.landing-screen-with-splash__content__heading{
+     text-align:center;
+     font-size:clamp(3vw , 3em , 10vw);
+     text-transform:uppercase;
+     margin: 1.5em 0px;
+     margin-top:3em;
+     color:white;
+}
+
+/*pick a game STYLES*/
+.pick-a-match-button{
+     margin:0 auto;
+     margin-bottom:3.5em;
+     border:0px;
+     width:350px;
+     border-radius:1em;
+     max-width:90%;
+}
+.game-button{
+     position:relative;
+     display:block;
+     outline: 0px;
+     border:0px;
+     padding:0px;
+
+}
+.pick-a-match-button .text{
+     font-size:3em;
+     padding:0.4em;
+     color:var(--less-white);
+     font-weight:550;    
+}
+
+
+.pick-a-match-button__1vPC .text{
+     background-color:var(--red-bright);
+}
+.pick-a-match-button__1vPC .button-shadow{
+     background-color:var(--red-dark-complement);
+}
+
+.pick-a-match-button__1v1 .text{
+     background-color:var(--yellow-less);
+}
+.pick-a-match-button__1v1 .button-shadow{
+     background-color:var(--yellow-less-dark-complement);
+}
+
+.pick-a-match-button__watch .text{
+     background-color:var(--purple-blue);
+}
+.pick-a-match-button__watch .button-shadow{
+     background-color:var(--purple-blue-dark-complement);
+}
+

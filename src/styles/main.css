@@ -1,0 +1,44 @@
+@import url('./variables.css');
+@import url('./ticTacToeStyles.css');
+@import url('./landingScreen.css');
+@import url('./playerForm.css');
+@import url('./movesHistory.css');
+@import url('./tictactoeArena.css');
+@import url('./currentPlayerBar.css');
+
+*{
+    box-sizing:border-box;
+    font-family:var(--main-font);
+}
+
+.game-button .text{
+     display:block;
+     position:relative;
+     text-align: center;
+     border-radius: inherit;
+     transform:translateY(-0.4em);
+     transition:transform 0.2s ease-out;
+     z-index:1;
+}
+.game-button .button-shadow{
+     position:absolute;
+     display:block;
+     inset:0px;
+     border-radius:inherit;
+}
+
+.game-button:hover .text , .game-button:focus .text{
+     transform:translateY(-0.2em);
+}
+
+
+@keyframes pop-in{
+     from{
+          transform:scale(0.3);
+          opacity:0;
+     }
+     to{
+          transform:scale(1);
+          opacity:1;
+     }
+}

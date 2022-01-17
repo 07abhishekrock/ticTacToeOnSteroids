@@ -1,0 +1,95 @@
+*{
+     --cell-gap : 10px;
+     --large-width : 300px;
+     --cell-icon-size : 50%;
+     --icon-border-radius:0.5em;
+     --large-cell-size : calc(var(--large-width) - calc(3 * var(--cell-gap)));
+     --large-cell-single-size : calc(var(--large-cell-size) / 3);
+     --large-winner-line-size : 5px;
+
+     --small-cell-gap : 3px;
+     --small-width : 80px;
+     --small-cell-size : calc(var(--small-width) - calc(3 * var(--small-cell-gap)));
+     --small-cell-single-size : calc(var(--small-cell-size) / 3);
+     --small-winner-line-size : 1px;
+}
+
+div.tic-tac-toe-icon{
+     display:flex;
+     flex-flow:column;
+     justify-content: space-between;
+     border-radius:var(--icon-border-radius);
+     overflow:hidden;
+     position:relative;
+}
+
+div.tic-tac-toe-icon.large-size{
+     width:var(--large-width);
+     height:var(--large-width);
+     margin:0 auto;
+}
+
+div.tic-tac-toe-icon.small-size{
+     width:var(--small-width);
+     height:var(--small-width);
+}
+
+div.tic-tac-toe-icon__row{
+     display:flex;
+     justify-content: space-between;
+}
+
+div.tic-tac-toe-icon.large-size div.tic-tac-toe-icon__row{
+     width:var(--large-width);
+}
+
+
+div.tic-tac-toe-icon__cell{
+     display:grid;
+     place-items:center;
+}
+
+div.tic-tac-toe-icon.large-size div.tic-tac-toe-icon__cell{
+     width:var(--large-cell-single-size);
+     height:var(--large-cell-single-size);
+}
+
+div.tic-tac-toe-icon.small-size div.tic-tac-toe-icon__cell{
+     width:var(--small-cell-single-size);
+     height:var(--small-cell-single-size);
+}
+
+div.tic-tac-toe-icon__cell svg{
+     width:var(--cell-icon-size);
+}
+
+
+div.tic-tac-toe-icon__cell--disabled{
+     pointer-events: none;
+}
+
+div.tic-tac-toe-icon__cell--disabled svg{
+     opacity:1;
+}
+
+div.tic-tac-toe-icon div.tic-tac-toe-icon__winner-line{
+     position:absolute;
+     height:var(--large-winner-line-size);
+     width:100%;
+     z-index:1;
+     opacity:0;
+     animation:fade-in 0.2s ease-out both;
+}
+
+div.tic-tac-toe-icon.small-size div.tic-tac-toe-icon__winner-line{
+     height:var(--small-winner-line-size);
+}
+
+@keyframes fade-in {
+     from{
+          opacity:0;
+     } 
+     to{
+          opacity:1;
+     }
+}

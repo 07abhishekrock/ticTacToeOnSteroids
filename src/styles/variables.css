@@ -1,0 +1,31 @@
+@import url(https://fonts.googleapis.com/css?family=Rubik:300,regular,500,600,700,800,900,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+
+:root{
+    --yellow-bright-bg : #FFCE50;
+    --blue-bright-bg:#00B2FF;
+    --blue-dodger-bg : #009CCD;
+    --yellow-less : #FFCE50;
+    --yellow-less-dark-complement : #D6BA74;
+    --blue-button : #48A7FF;
+    --blue-button-dark-complement : #0E8BFF;
+    --red-bright : #F54747;
+    --red-dark-complement : #A93B3B;
+    --less-white : #FFF9E9;
+    --purple-blue : #5076FF ;
+    --purple-blue-dark-complement : #4A66CA;
+    --main-font : "Rubik" , sans-serif;
+
+    --black-less-opacity : rgba(0,0,0,0.5);
+    --standard-box-shadow : 0px 0px 25px 5px rgba(0,0,0,0.05);
+
+    --orange-cream : #FFA451;
+    --orange-cream-dark-complement : #FF820E;
+
+    --input-faded-bg : #F5F5F5;
+    --input-hover-outline : 1px solid #c1c1c1;
+
+
+    --selected-option-outline-color : dodgerblue;
+
+}
+

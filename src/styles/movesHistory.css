@@ -1,0 +1,26 @@
+div.moves-history-wrapper{
+     z-index:1;
+     position: relative;
+}
+
+ul.moves-history{
+     display:flex;
+     list-style:none;
+     padding-left:0px;
+     gap:1.5em;
+     margin-top:4em;
+     width:100%;
+     justify-content:center;
+     flex-wrap:wrap;
+}
+ul.moves-history li{
+     opacity:0;
+     animation:pop-in 0.3s 0.3s ease-out both;
+}
+
+ul.moves-history li.move--highlight{
+     outline:2px solid white;
+     outline-offset:3px;
+     border-radius:0.5em;
+}
+
