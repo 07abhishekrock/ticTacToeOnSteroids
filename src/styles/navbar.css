@@ -21,14 +21,23 @@ div.sound-bar{
 }
 
 div.sound-bar i.sound-bar__icon{
-     width:1.5em;
-     height:1.5em;
      color:white;
      cursor:pointer;
 }
 
-div.sound-bar i.sound-bar__icon--home{
-     transform:scale(0.9);
+div.sound-bar i.sound-bar__icon svg{
+     width:1.5em;
+     height:1.5em;
+}
+
+div.sound-bar i.sound-bar__seperator{
+     height:1.5em;
+     width:2px;
+     background-color:white;
+}
+
+div.sound-bar i.sound-bar__icon--link{
+     transform:scale(0.8);
 }
 
 div.sound-bar i.sound-bar__icon--disabled{

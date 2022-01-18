@@ -1,12 +1,16 @@
-import { useState , useEffect } from 'react'
+import React, { useState , useEffect } from 'react'
 import {ReactComponent as TicTacToeSVG} from '../icons/ticTacToe.svg';
 import {ReactComponent as HomeIcon} from '../icons/home.svg';
 import pushAudioEvent, { SoundEvents } from '../utils/soundPanel';
 import {ReactComponent as MusicIcon} from '../icons/music.svg';
 import {ReactComponent as SoundIcon} from '../icons/sound.svg';
+import {ReactComponent as PlayIcon} from '../icons/playIcon.svg';
+import {ReactComponent as HistoryIcon} from '../icons/historyIcon.svg';
 import { Link } from 'react-router-dom';
 
-function SoundBar(){
+
+
+function SoundBar({linkIcons} : {linkIcons : Element | JSX.Element}){
      const [soundBarConfig , setSoundBarConfig] = useState({
           sound : false,
           audio : false
@@ -57,11 +61,9 @@ function SoundBar(){
           }} className={`sound-bar__icon sound-bar__icon--sound ${soundBarConfig.audio ? "" : "sound-bar__icon--disabled"}`}>
                <SoundIcon/>
           </i>
-          <i className={`sound-bar__icon sound-bar__icon--home`}>
-               <Link to="/play">
-                    <HomeIcon/>
-               </Link>
-          </i>
+          <i className={`sound-bar__seperator`}></i>
+          {linkIcons}
+          
      </div>
 }
 
@@ -71,7 +73,26 @@ function Navbar() {
                <i className="navbar__tic-tac-toe-icon">
                     <TicTacToeSVG/>
                </i>
-               <SoundBar/>
+               <SoundBar
+                    linkIcons={
+                    <>
+                    <i className={`sound-bar__icon sound-bar__icon--link`}>
+                         <Link to="/play">
+                              <HomeIcon/>
+                         </Link>
+                    </i>
+                    <i className={`sound-bar__icon sound-bar__icon--link`}>
+                         <Link to="/history">
+                              <HistoryIcon/>
+                         </Link>
+                    </i>
+                    <i className={`sound-bar__icon sound-bar__icon--link`}>
+                         <Link to="/play/1v1">
+                              <PlayIcon/>
+                         </Link>
+                    </i>
+                    </>}
+               />
           </nav>
      )
 }
