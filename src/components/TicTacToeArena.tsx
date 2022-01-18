@@ -1,6 +1,7 @@
 import React from 'react'
 import { SystemColors } from '../utils/constants';
-import pushAudioEvent, { SoundEvents } from '../utils/soundPanel';
+import pushAudioEvent from '../utils/soundPanel';
+import { SoundLabels } from '../utils/sounds';
 import { TicTacToeLayoutInterface } from '../utils/TicTacToeLayout';
 import { GameArenaCommonProps , GameResult, GameResultType, GameState } from '../utils/types';
 import TicTacToeIcon from './TicTacToeIcon';
@@ -41,14 +42,14 @@ function TicTacToeArena({ type , currentGameSession , currentMove  , setCurrentM
                     }}
                     onGameEnd={(result : GameResultType)=>{
                          if(result === GameResultType['WITH-RESULT']){
-                              if(type === 'play') pushAudioEvent(SoundEvents['GAME-END-SOUND']);
+                              if(type === 'play') pushAudioEvent(SoundLabels.GAME_WIN_SOUND);
                               markResult({
                                    result ,
                                    winner : currentPlayer
                               })
                          }
                          else if(result === GameResultType['TIED']){
-                              if(type === 'play') pushAudioEvent(SoundEvents['GAME-DRAW-SOUND']);
+                              if(type === 'play') pushAudioEvent(SoundLabels.GAME_TIE_SOUND);
                               markResult({
                                    result ,
                                    winner : null

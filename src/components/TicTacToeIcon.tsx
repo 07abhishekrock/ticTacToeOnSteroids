@@ -3,7 +3,8 @@ import { allMovesFilled, checkIfWinnerFound, TicTacToeLayoutInterface, ticTacToe
 import { ReactComponent as XIcon } from '../icons/X.svg';
 import { ReactComponent as OIcon } from '../icons/0.svg';
 import { GameResultType } from '../utils/types';
-import pushAudioEvent, { SoundEvents } from '../utils/soundPanel';
+import pushAudioEvent from '../utils/soundPanel';
+import { SoundLabels } from '../utils/sounds';
 
 type TicTacToeSizeType = 'small' | 'medium' | 'large';
 
@@ -147,7 +148,7 @@ function TicTacToeIcon({
                                         }}
                                         onClick={()=>{
                                              if(typeof markCrossOrNaught === 'function'){
-                                                  pushAudioEvent(SoundEvents['HIT-BUTTON-SOUND']);
+                                                  pushAudioEvent(SoundLabels.HIT_BUTTON);
                                                   const position = rowIndex * 3 + singleCellIndex;
                                                   markCrossOrNaught(position);
                                              }

@@ -1,5 +1,6 @@
 import React, { ReactEventHandler } from 'react'
-import pushAudioEvent, { SoundEvents } from '../utils/soundPanel';
+import pushAudioEvent from '../utils/soundPanel';
+import {SoundLabels} from '../utils/sounds';
 
 type GameButtonProps = {
      className ?: string,
@@ -13,7 +14,7 @@ function GameButton({
 } : GameButtonProps) {
      return (
           <button type={type} className={`game-button ${className}`} onClick={(e)=>{
-               pushAudioEvent(SoundEvents['HIT-BUTTON-SOUND']);
+               pushAudioEvent(SoundLabels.HIT_BUTTON);
                if(onClick) onClick(e);
           }}>
                <span className="button-shadow"></span>

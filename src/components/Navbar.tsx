@@ -1,66 +1,59 @@
 import React, { useState , useEffect } from 'react'
 import {ReactComponent as TicTacToeSVG} from '../icons/ticTacToe.svg';
 import {ReactComponent as HomeIcon} from '../icons/home.svg';
-import pushAudioEvent, { SoundEvents } from '../utils/soundPanel';
+import pushAudioEvent from '../utils/soundPanel';
+import { generateSoundEventString, SoundLabels, SoundState, SoundType } from '../utils/sounds';
 import {ReactComponent as MusicIcon} from '../icons/music.svg';
 import {ReactComponent as SoundIcon} from '../icons/sound.svg';
 import {ReactComponent as PlayIcon} from '../icons/playIcon.svg';
 import {ReactComponent as HistoryIcon} from '../icons/historyIcon.svg';
 import { Link } from 'react-router-dom';
 
-
-
 function SoundBar({linkIcons} : {linkIcons : Element | JSX.Element}){
-     const [soundBarConfig , setSoundBarConfig] = useState({
-          sound : false,
-          audio : false
+     const [soundState , setSoundState] = useState<SoundState>({
+          sample : false,
+          track : false
      })
+     const [areSamplesLoaded , changeIfSamplesLoaded] = useState(false);
+     const [areTracksLoaded , changeIfTracksLoaded] = useState(false);
      useEffect(()=>{
-          const eventCallback = ()=>{
-               pushAudioEvent(SoundEvents['DISABLE-TRACK']);
-               pushAudioEvent(SoundEvents['DISABLE-SAMPLE']);
-          }
-          eventCallback();
+
+          document.addEventListener(generateSoundEventString('SAMPLE'),()=>{
+               changeIfSamplesLoaded(true);
+          })
+          document.addEventListener(generateSoundEventString('TRACK'),()=>{
+               changeIfTracksLoaded(true);
+          })
      },[])
 
      return <div className="sound-bar">
-          <i onClick={()=>{
-               if(soundBarConfig.sound){
-                    pushAudioEvent(SoundEvents['DISABLE-TRACK']);
-                    setSoundBarConfig({
-                         ...soundBarConfig,
-                         sound : false
-                    })
+          {areTracksLoaded ? <i onClick={()=>{
+               if(!soundState.track){
+                    pushAudioEvent(SoundLabels.ENABLE_ALL_TRACKS);
+                    pushAudioEvent(SoundLabels.SOUND_TRACK);
                }
                else{
-                    pushAudioEvent(SoundEvents['ENABLE-TRACK']);
-                    pushAudioEvent(SoundEvents['SOUND-TRACK']);
-                    setSoundBarConfig({
-                         ...soundBarConfig,
-                         sound : true 
-                    })
+                    pushAudioEvent(SoundLabels.DISABLE_ALL_TRACKS);
                }
-          }} className={`sound-bar__icon sound-bar__icon--music ${soundBarConfig.sound ? "" : "sound-bar__icon--disabled"}`}>
+               setSoundState(state=>{
+                    return {...state , track : !state.track};
+               })
+          }} className={`sound-bar__icon sound-bar__icon--music ${soundState.track ? "" : "sound-bar__icon--disabled"} `}>
                <MusicIcon/>
-          </i>
-          <i onClick={()=>{
-               if(soundBarConfig.audio){
-                    pushAudioEvent(SoundEvents['DISABLE-SAMPLE']);
-                    setSoundBarConfig({
-                         ...soundBarConfig,
-                         audio : false
-                    })
+          </i> : null}
+          {areSamplesLoaded ? <i onClick={()=>{
+               if(!soundState.sample){
+                    pushAudioEvent(SoundLabels.ENABLE_ALL_SAMPLES);
                }
                else{
-                    pushAudioEvent(SoundEvents['ENABLE-SAMPLE']);
-                    setSoundBarConfig({
-                         ...soundBarConfig,
-                         audio : true 
-                    })
+                    pushAudioEvent(SoundLabels.DISABLE_ALL_SAMPLES);
                }
-          }} className={`sound-bar__icon sound-bar__icon--sound ${soundBarConfig.audio ? "" : "sound-bar__icon--disabled"}`}>
+               setSoundState(state=>{
+                    return {...state , sample : !state.sample};
+               })
+          }} className={`sound-bar__icon sound-bar__icon--sound ${soundState.sample ? "" : "sound-bar__icon--disabled"}`}>
                <SoundIcon/>
-          </i>
+          </i> : null}
           <i className={`sound-bar__seperator`}></i>
           {linkIcons}
           

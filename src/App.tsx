@@ -12,7 +12,8 @@ import ReplayGameScreen from './pages/ReplayGameScreen';
 import Navbar from './components/Navbar';
 import { addGameSessionToLocalStorage, fetchDataFromLocalStorage } from './utils/localStorage';
 import HistoryScreen from './pages/HistoryScreen';
-import pushAudioEvent, { SoundEvents } from './utils/soundPanel';
+import pushAudioEvent from './utils/soundPanel';
+import { SoundLabels } from './utils/sounds';
 
 
 function App() {
@@ -95,7 +96,7 @@ function App() {
       })
     }
     if(action.type === 'ADD-PLAYERS'){
-      pushAudioEvent(SoundEvents['GAME-START-SOUND']);
+      pushAudioEvent(SoundLabels.GAME_START_SOUND);
       dispatchToGlobalState(action);
     }
     else{
