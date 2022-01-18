@@ -72,7 +72,7 @@ export const usePlayerForm = ({totalPlayers} : {totalPlayers : number})=>{
                     playerIcon : nextAvailableAvatar()
                })
           }
-     },[players])
+     },[players , nextAvailableAvatar , nextAvailableColor])
 
      return { players , addAPlayer , currentPlayer , setCurrentPlayer , nextAvailableAvatar , nextAvailableColor , isPropTaken}
 }

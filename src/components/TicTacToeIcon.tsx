@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { allMovesFilled, checkIfWinnerFound, isInitialLayout, TicTacToeLayoutInterface, ticTacToeValue } from '../utils/TicTacToeLayout';
+import { allMovesFilled, checkIfWinnerFound, TicTacToeLayoutInterface, ticTacToeValue } from '../utils/TicTacToeLayout';
 import { ReactComponent as XIcon } from '../icons/X.svg';
 import { ReactComponent as OIcon } from '../icons/0.svg';
 import { GameResultType } from '../utils/types';

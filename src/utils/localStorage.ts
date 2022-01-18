@@ -25,12 +25,3 @@ export function addGameSessionToLocalStorage(newGameSessionArray : GameSession[]
      }
 }
 
-function safeJSONParse(jsonString : string){
-     try{
-          const jsonData = JSON.parse(jsonString);
-          return jsonData;
-     }
-     catch(e){
-          return null;
-     }
-}

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useNavigate } from 'react-router';
 import crownImage from '../icons/crown.svg';
 import { BannerResultStateType, GameArenaCommonProps, GameResultType, GameSession, PlayerType } from '../utils/types';

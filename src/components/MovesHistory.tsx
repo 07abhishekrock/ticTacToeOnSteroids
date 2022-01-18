@@ -26,7 +26,7 @@ function MovesHistory({
                               if(type === 'replay'){
                                    setCurrentMove(gameMove);
                                    if(index < currentGameSession.gameMoves.length){
-                                        if(index == 0) setCurrentPlayer(0 as PlayerIndex);
+                                        if(index === 0) setCurrentPlayer(0 as PlayerIndex);
                                         else setCurrentPlayer((index + 1) % 2 as PlayerIndex);
                                    }
                               }

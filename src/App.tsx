@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from 'react';
-import { BrowserRouter, Routes , Route } from 'react-router-dom';
+import { BrowserRouter, Routes , Route , Navigate } from 'react-router-dom';
 import MainPlayScreen from './pages/MainPlayScreen';
 
 //stylesheets
@@ -115,7 +115,7 @@ function App() {
         <BrowserRouter> 
           <Navbar/>
           <Routes>
-            <Route element={<div>Home Screen</div>} index/>
+            <Route path="/" element={<Navigate replace to="/play" />} />
             <Route element={<MainPlayScreen/>} path="/play"/>
             <Route element={<PlaygroundScreen totalPlayers={2}/>} path="/play/1v1"/>
             <Route element={<HistoryScreen/>} path="/history"/>
