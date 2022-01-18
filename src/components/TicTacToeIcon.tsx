@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { allMovesFilled, checkIfWinnerFound, TicTacToeLayoutInterface, ticTacToeValue } from '../utils/TicTacToeLayout';
+import { allMovesFilled, checkIfWinnerFound, isInitialLayout, TicTacToeLayoutInterface, ticTacToeValue } from '../utils/TicTacToeLayout';
 import { ReactComponent as XIcon } from '../icons/X.svg';
 import { ReactComponent as OIcon } from '../icons/0.svg';
 import { GameResultType } from '../utils/types';
+import pushAudioEvent, { SoundEvents } from '../utils/soundPanel';
 
 type TicTacToeSizeType = 'small' | 'medium' | 'large';
 
@@ -44,14 +45,14 @@ function generateTransformString(angle : number | null, offset : number | null){
      switch(angle){
           case 0 : 
                return {
-                    top: `${Math.floor(16.666667 * (offset * 2 + 1))}%`,
+                    top: `${16.666667 * (offset * 2 + 1)}%`,
                     left : '0px',
                     transform : `rotateZ(${angle}deg)`
                }
           case 90 : 
                return {
                     top : '0px',
-                    left : `${Math.floor(16.66667 * (offset * 2 + 1))}%`,
+                    left : `${16.66667 * (offset * 2 + 1) - (1 - offset * 2)}%`,
                     transform : `rotateZ(${angle}deg) translateY(50%)`,
                     transformOrigin : '0% 50%'
                }
@@ -90,7 +91,6 @@ function TicTacToeIcon({
      })
 
      useEffect(()=>{
-          if(winnerState.showWinner) return;
           const {winnerFound , angleOfCut , cutOffset , winnerSymbol} = checkIfWinnerFound(layout);
           if(winnerFound){
                setWinnerState({
@@ -105,6 +105,17 @@ function TicTacToeIcon({
           }
           else{
               if(allMovesFilled(layout) && onGameEnd) onGameEnd(GameResultType['TIED']);
+              else{
+                    if(winnerState.showWinner)
+                    {
+                         setWinnerState({
+                              angle : null,
+                              offset : null,
+                              showWinner : false,
+                              symbol : ''
+                         })
+                    }
+              }
           }
      },[layout])
 
@@ -123,8 +134,11 @@ function TicTacToeIcon({
                }}></div> : null}
 
                {layout.map<JSX.Element>((rowLayout , rowIndex)=>{
+
                     return <div className="tic-tac-toe-icon__row" key={`row-${rowIndex}`}>
+
                               {rowLayout.map<JSX.Element>((singleCell , singleCellIndex)=>{
+
                                    return <div className={"tic-tac-toe-icon__cell " + generateDisabledClass(singleCell , active)}
                                         key={`cell-${rowIndex}-${singleCellIndex}`}
                                         style={{
@@ -133,6 +147,7 @@ function TicTacToeIcon({
                                         }}
                                         onClick={()=>{
                                              if(typeof markCrossOrNaught === 'function'){
+                                                  pushAudioEvent(SoundEvents['HIT-BUTTON-SOUND']);
                                                   const position = rowIndex * 3 + singleCellIndex;
                                                   markCrossOrNaught(position);
                                              }

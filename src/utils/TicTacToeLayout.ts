@@ -112,12 +112,16 @@ export function allMovesFilled(layout:TicTacToeLayoutInterface):boolean{
      let emptyFound = false;
      layout.every((row)=>{
           row.every((cell)=>{
-               if(cell === ''){
+               if(cell){
+                    return true;
+               }
+               else{
                     emptyFound = true;
                     return false;
                }
-               return true;
           })
+          if(emptyFound) return false;
+          return true;
      })
      return !emptyFound
 }

@@ -35,11 +35,6 @@ function PlaygroundScreen({totalPlayers} : PlaygroundScreenProps) {
                               payload : playerObject
                          })
                     }}
-                    cancelGame={()=>{
-                         dispatchToGlobalState({
-                              type : 'DELETE-CURRENT-SESSION'
-                         })
-                    }}
                /> : null }
 
                {globalState.currentGameSession && globalState.currentGameSession?.gameState !== GameState.CREATED 
@@ -62,6 +57,11 @@ function PlaygroundScreen({totalPlayers} : PlaygroundScreenProps) {
                     StartingMoveState={{
                          player : 0,
                          state : initialTicTacToeState
+                    }}
+                    playCurrentGameAgain={()=>{
+                         dispatchToGlobalState({
+                              type : 'REPLAY-CURRENT-GAME'
+                         })
                     }}
                     currentGameSession={globalState.currentGameSession}
                     type="play"

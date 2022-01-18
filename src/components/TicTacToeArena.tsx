@@ -1,7 +1,8 @@
 import React from 'react'
 import { SystemColors } from '../utils/constants';
+import pushAudioEvent, { SoundEvents } from '../utils/soundPanel';
 import { TicTacToeLayoutInterface } from '../utils/TicTacToeLayout';
-import { GameArenaCommonProps , GameResult, GameResultType, GameState, MoveStateType } from '../utils/types';
+import { GameArenaCommonProps , GameResult, GameResultType, GameState } from '../utils/types';
 import TicTacToeIcon from './TicTacToeIcon';
 
 
@@ -9,12 +10,12 @@ import TicTacToeIcon from './TicTacToeIcon';
 type TicTacToeArenaProps = GameArenaCommonProps & {
      currentMove : TicTacToeLayoutInterface,
      currentPlayer : 0 | 1,
-     setCurrentMoveState : React.Dispatch<React.SetStateAction<MoveStateType>>,
+     setCurrentMove : React.Dispatch<React.SetStateAction<TicTacToeLayoutInterface>>,
      markResult:(result : GameResult)=>void
 
 }
 
-function TicTacToeArena({ type , currentGameSession , currentMove  , setCurrentMoveState, currentPlayer , markResult} : TicTacToeArenaProps) {
+function TicTacToeArena({ type , currentGameSession , currentMove  , setCurrentMove, currentPlayer , markResult} : TicTacToeArenaProps) {
      return (
           <div className="tic-tac-toe-arena">
                <TicTacToeIcon
@@ -32,20 +33,22 @@ function TicTacToeArena({ type , currentGameSession , currentMove  , setCurrentM
                          const y = Math.floor(newState / 3);
                          const x = newState - (3 * y);
 
-                         setCurrentMoveState((OldMoveState)=>{
-                              const newState = JSON.parse(JSON.stringify(OldMoveState.state)) as TicTacToeLayoutInterface;
+                         setCurrentMove((OldMove)=>{
+                              const newState = JSON.parse(JSON.stringify(OldMove)) as TicTacToeLayoutInterface;
                               newState[y][x] = currentPlayer === 0 ? 'O' : 'X';
-                              return {state : newState , player : currentPlayer === 0 ? 1 : 0}
+                              return newState;
                          })
                     }}
                     onGameEnd={(result : GameResultType)=>{
                          if(result === GameResultType['WITH-RESULT']){
+                              if(type === 'play') pushAudioEvent(SoundEvents['GAME-END-SOUND']);
                               markResult({
                                    result ,
-                                   winner : currentPlayer === 0 ? 1 : 0
+                                   winner : currentPlayer
                               })
                          }
                          else if(result === GameResultType['TIED']){
+                              if(type === 'play') pushAudioEvent(SoundEvents['GAME-DRAW-SOUND']);
                               markResult({
                                    result ,
                                    winner : null

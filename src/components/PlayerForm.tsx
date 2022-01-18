@@ -8,7 +8,6 @@ import { usePlayerForm } from '../utils/hooks'
 type PlayerFormProps = {
      totalPlayers : 1 | 2,
      addPlayers : (playerObject : PlayerType[])=>void,
-     cancelGame : ()=>void
 }
 
 enum UserOptionModalStateType{'none', 'color', 'avatar'};
@@ -21,7 +20,7 @@ function appendSuperscriptToNumber(number : number){
      }
 }
 
-function PlayerForm({totalPlayers , addPlayers , cancelGame} : PlayerFormProps) {
+function PlayerForm({totalPlayers , addPlayers } : PlayerFormProps) {
 
      const [userOptionModalState , setUserOptionModalState] = useState<UserOptionModalStateType>(UserOptionModalStateType.none);
      const { 
@@ -40,7 +39,7 @@ function PlayerForm({totalPlayers , addPlayers , cancelGame} : PlayerFormProps) 
           if(players.length === totalPlayers){
                addPlayers(players);
           }
-     },[players , addPlayers])
+     },[players , addPlayers , totalPlayers])
 
 
      return (

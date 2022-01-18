@@ -5,10 +5,17 @@
 @import url('./movesHistory.css');
 @import url('./tictactoeArena.css');
 @import url('./currentPlayerBar.css');
+@import url('./gameEndModal.css');
+@import url('./navbar.css');
 
 *{
     box-sizing:border-box;
     font-family:var(--main-font);
+}
+
+a{
+     color:inherit;
+     text-decoration:none;
 }
 
 .game-button .text{
@@ -40,5 +47,14 @@
      to{
           transform:scale(1);
           opacity:1;
+     }
+}
+
+@keyframes appear{
+     from{
+          opacity : 0;
+     }
+     to{
+          opacity : 1;
      }
 }

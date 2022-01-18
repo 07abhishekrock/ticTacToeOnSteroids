@@ -1,0 +1,36 @@
+nav.navbar{
+     position:fixed;
+     z-index:10;
+     top:0px;
+     display: flex;
+     align-items:center;
+     justify-content: space-between;
+     padding:0.5em 1em;
+     width:100%;
+     background-color:rgba(0,0,0,0.3);
+}
+
+nav.navbar i.navbar__tic-tac-toe-icon{
+     width:2em;
+     height:2em;
+}
+
+div.sound-bar{
+     display:flex;
+     gap:1em;
+}
+
+div.sound-bar i.sound-bar__icon{
+     width:1.5em;
+     height:1.5em;
+     color:white;
+     cursor:pointer;
+}
+
+div.sound-bar i.sound-bar__icon--home{
+     transform:scale(0.9);
+}
+
+div.sound-bar i.sound-bar__icon--disabled{
+     opacity:0.5;
+}

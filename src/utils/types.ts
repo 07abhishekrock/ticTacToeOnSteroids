@@ -21,10 +21,10 @@ export interface GameSession{
      players : PlayerType[],
      gameResult : GameResult,
      gameMoves : TicTacToeLayoutInterface[],
-     dateOfPlaying : Date
+     dateOfPlaying : string
 }
 
-export type BannerResultStateType = 'NONE' | 'FINISH-GAME' | 'REPLAY'
+export type BannerResultStateType = 'NONE' | 'FINISH-GAME' 
 
 export interface GameArenaCommonProps{
      type : 'play' | 'replay',
@@ -32,3 +32,5 @@ export interface GameArenaCommonProps{
 }
 
 export type MoveStateType = {state : TicTacToeLayoutInterface , player : 0 | 1};
+
+export type PlayerIndex = 0 | 1;

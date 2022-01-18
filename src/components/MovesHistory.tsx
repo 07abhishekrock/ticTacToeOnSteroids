@@ -1,30 +1,34 @@
 import React from 'react'
-import { GameArenaCommonProps, MoveStateType } from '../utils/types'
+import { GameArenaCommonProps, PlayerIndex } from '../utils/types'
 import { SystemColors } from '../utils/constants'
 import TicTacToeIcon from './TicTacToeIcon'
-import { areSameLayouts } from '../utils/TicTacToeLayout'
+import { areSameLayouts, TicTacToeLayoutInterface } from '../utils/TicTacToeLayout'
 
 type MovesHistoryProps = {
-     currentMoveState : MoveStateType,
-     setCurrentMoveState : React.Dispatch<React.SetStateAction<MoveStateType>>,
+     currentMove : TicTacToeLayoutInterface,
+     currentPlayer : PlayerIndex,
+     setCurrentMove : React.Dispatch<React.SetStateAction<TicTacToeLayoutInterface>>,
+     setCurrentPlayer : React.Dispatch<React.SetStateAction<PlayerIndex>>,
 } & GameArenaCommonProps
 
 function MovesHistory({
      type,
      currentGameSession,
-     currentMoveState,
-     setCurrentMoveState
+     currentMove,
+     setCurrentMove,
+     setCurrentPlayer
 } : MovesHistoryProps) {
      return (
           <div className="moves-history-wrapper">
                <ul className="moves-history">
                     {currentGameSession.gameMoves.map((gameMove , index)=>{
-                         return <li key={index} className={`${areSameLayouts(currentMoveState.state , gameMove) ? 'move--highlight' : ''}`} onClick={()=>{
+                         return <li key={index} className={`${areSameLayouts(currentMove , gameMove) ? 'move--highlight' : ''}`} onClick={()=>{
                               if(type === 'replay'){
-                                   setCurrentMoveState({
-                                        player : index % 2 as 0 | 1,
-                                        state : gameMove
-                                   })
+                                   setCurrentMove(gameMove);
+                                   if(index < currentGameSession.gameMoves.length){
+                                        if(index == 0) setCurrentPlayer(0 as PlayerIndex);
+                                        else setCurrentPlayer((index + 1) % 2 as PlayerIndex);
+                                   }
                               }
                          }}>
                               <TicTacToeIcon 

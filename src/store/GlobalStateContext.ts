@@ -30,6 +30,13 @@ export type GlobalStateActionBundle = {
      payload : GameResult
 } | {
      type : 'DELETE-CURRENT-SESSION',
+} | {
+     type : 'REPLAY-CURRENT-GAME'
+} | {
+     type : 'FETCH-FROM-LOCALSTORAGE'
+} | {
+     type : 'ADD-GAME-SESSIONS',
+     payload : GameSession[]
 }
 
 

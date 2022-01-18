@@ -1,51 +1,106 @@
-import React , {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import MovesHistory from './MovesHistory';
-import { BannerResultStateType, GameArenaCommonProps, GameResult, GameState, MoveStateType} from '../utils/types'
+import { BannerResultStateType, GameArenaCommonProps, GameResult, GameResultType, GameState, MoveStateType, PlayerIndex} from '../utils/types'
 import TicTacToeArena from './TicTacToeArena';
 import {isInitialLayout, TicTacToeLayoutInterface} from '../utils/TicTacToeLayout';
 import CurrentPlayerBar from './CurrentPlayerBar';
+import GameEndModal from './GameEndModal';
+import { initialGameResult, initialTicTacToeState } from '../utils/constants';
+import { useLocation } from 'react-router-dom';
+import pushAudioEvent, { SoundEvents } from '../utils/soundPanel';
 
 type GameArenaProps = GameArenaCommonProps & {
      addMoves : (state : TicTacToeLayoutInterface)=>void,
      StartingMoveState : MoveStateType,
-     markResult : (gameResult : GameResult)=>void
+     markResult ?: (gameResult : GameResult)=>void,
+     playCurrentGameAgain ?: ()=>void
 };
 
+type BannerStartCommand = {
+     state : {
+          hideBannerOnStart ?: boolean
+     }
+}
+
 function GameArena({
-     type , currentGameSession , addMoves , StartingMoveState , markResult
+     type , currentGameSession , addMoves , StartingMoveState , markResult , playCurrentGameAgain
 } : GameArenaProps) {
 
-     const [currentMoveState , setCurrentMoveState] = useState<MoveStateType>(StartingMoveState)
-     const [bannerDisplayState , setBannerDisplayState] = useState('NONE' as BannerResultStateType);
+     const [currentMove , setCurrentMove] = useState<TicTacToeLayoutInterface>(StartingMoveState.state)
+     const [currentPlayer , setCurrentPlayer] = useState<PlayerIndex>(StartingMoveState.player);
+     const [gameResult , markGameResult] = useState<GameResult>(initialGameResult as GameResult);
+
+     const location = useLocation() as BannerStartCommand;
+     const [resultBannerType , setResultBannerType] = useState<BannerResultStateType>(type === 'play' || location.state?.hideBannerOnStart ? 'NONE' : 'FINISH-GAME' );
 
      useEffect(()=>{
-          if(!isInitialLayout(currentMoveState.state) && type === 'play'){
-               addMoves(currentMoveState.state);
+          if(isInitialLayout(currentMove) && type==='play' && currentGameSession.gameState === GameState.PLAYING) pushAudioEvent(SoundEvents['GAME-START-SOUND'])
+          if(!isInitialLayout(currentMove) && type === 'play'){
+               addMoves(currentMove);
           }
-     },[type , currentMoveState.state])
+     },[type , currentMove , currentGameSession.gameState])
+
+     useEffect(()=>{
+          if(currentGameSession.gameMoves.length <= 1 || currentGameSession.gameState === GameState.COMPLETE) return;
+          if(gameResult.result !== GameResultType.TBD){
+               setTimeout(()=>{
+                    setResultBannerType('FINISH-GAME');
+               },1000)
+               if(markResult) markResult(gameResult);
+          }
+          else{
+               if(type==='play') setCurrentPlayer(player=>player === 0 ? 1 : 0);
+          }
+     },[currentGameSession.gameMoves , gameResult , markResult , currentGameSession.gameState])
 
 
      return (
           <div className="game-arena">
                <TicTacToeArena 
                     type={type} 
-                    currentMove={currentMoveState.state}
-                    currentPlayer={currentMoveState.player}
-                    setCurrentMoveState={setCurrentMoveState}
+                    currentMove={currentMove}
+                    currentPlayer={currentPlayer}
+                    setCurrentMove={setCurrentMove}
                     currentGameSession={currentGameSession}
-                    markResult={markResult}
+                    markResult={markGameResult}
                />
 
                <MovesHistory
                     currentGameSession={currentGameSession} 
-                    currentMoveState={currentMoveState}
-                    setCurrentMoveState={setCurrentMoveState}
+                    currentMove={currentMove}
+                    currentPlayer={currentPlayer}
+                    setCurrentMove={setCurrentMove}
+                    setCurrentPlayer={setCurrentPlayer}
                     type={type}
                />
 
                <CurrentPlayerBar
                     currentGameSession={currentGameSession} 
-                    currentMoveState={currentMoveState}
+                    currentMoveState={{
+                         player : currentPlayer,
+                         state : currentMove
+                    }}
+               />
+
+               <GameEndModal 
+                    modalDisplayType={resultBannerType} 
+                    closeModal={()=>{
+                         setResultBannerType('NONE');
+                    }}
+                    currentGameSession={currentGameSession}
+                    type={type}
+                    playCurrentGameAgain={()=>{
+                         if(playCurrentGameAgain){
+                              setResultBannerType('NONE');
+                              setCurrentPlayer(0);
+                              setCurrentMove(initialTicTacToeState);
+                              markGameResult({
+                                   result : GameResultType.TBD,
+                                   winner : null
+                              })
+                              playCurrentGameAgain();
+                         }
+                    }}
                />
 
           </div>

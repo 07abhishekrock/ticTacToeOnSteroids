@@ -25,6 +25,10 @@
     --input-hover-outline : 1px solid #c1c1c1;
 
 
+    --winner-crown-color : #FFB636;
+    --tie-heading-color : #BCBCBC;
+
+
     --selected-option-outline-color : dodgerblue;
 
 }

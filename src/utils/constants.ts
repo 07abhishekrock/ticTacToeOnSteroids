@@ -4,7 +4,7 @@ import face2 from '../icons/face-2.svg';
 import face3 from '../icons/face-3.svg';
 import { TicTacToeLayoutInterface } from './TicTacToeLayout';
 import {v4 as uuidv4} from 'uuid';
-import { GameResultType, GameSession, GameState } from './types';
+import { GameResult, GameResultType, GameSession, GameState } from './types';
 
 export const SystemColors = {
      yellowTicTacToe : {
@@ -57,14 +57,22 @@ export const initialTicTacToeState : TicTacToeLayoutInterface = [
      ['' , '' , '']
 ]
 
-export const initialGameSession : GameSession = {
-     dateOfPlaying : new Date(),
-     gameID : uuidv4(),
-     gameMoves : [initialTicTacToeState],
-     gameResult : {
-          result : GameResultType.TBD,
-          winner : null
-     },
-     gameState : GameState.CREATED,
-     players : []
+export const initialGameSession = () : GameSession => {
+     return {
+          dateOfPlaying : (new Date()).toDateString(),
+          gameID : uuidv4(),
+          gameMoves : [initialTicTacToeState],
+          gameResult : {
+               result : GameResultType.TBD,
+               winner : null
+          },
+          gameState : GameState.CREATED,
+          players : []
+     }
+
+}
+
+export const initialGameResult : GameResult = {
+     result : GameResultType.TBD,
+     winner : null
 }

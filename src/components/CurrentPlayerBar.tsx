@@ -1,7 +1,7 @@
 import React from 'react'
 import { GameSession, MoveStateType } from '../utils/types'
 
-type CurrentPlayerBar = {
+type CurrentPlayerBarType = {
      currentGameSession : GameSession
      currentMoveState : MoveStateType
 }
@@ -25,7 +25,7 @@ function SinglePlayerCircle({icon , color , playerIndex , isPlayingTurn} : Singl
      </div>
 }
 
-function CurrentPlayerBar({currentGameSession , currentMoveState} : CurrentPlayerBar) {
+function CurrentPlayerBar({currentGameSession , currentMoveState} : CurrentPlayerBarType) {
      return (
           <div className="current-player-bar">
 

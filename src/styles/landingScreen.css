@@ -16,6 +16,9 @@ div.landing-screen-with-splash div.landing-screen-with-splash__splash{
      flex-flow:column;
      background-color:var(--yellow-bright-bg);
      padding-bottom:50px;
+     height:100vh;
+     position:sticky;
+     top:0px;
 }
 div.landing-screen-with-splash div.landing-screen-with-splash__content{
      width:var(--splash-width);
@@ -111,4 +114,54 @@ h1.landing-screen-with-splash__content__heading{
 .pick-a-match-button__watch .button-shadow{
      background-color:var(--purple-blue-dark-complement);
 }
+
+
+
+ul.past-games{
+     list-style:none;
+     padding-left:0px;
+}
+
+ul.past-games li.past-games__single{
+     width:90%;
+     background-color:white;
+     margin:0 auto;
+     margin-bottom:1em;
+     border-radius:0.5em;
+     padding:1em;
+}
+
+ul.past-games li.past-games__single h4.past-games__single--title{
+     font-weight:500;
+}
+
+ul.past-games li.past-games__single h4.past-games__single--title i{
+     color:red;
+     font-weight:600;
+     font-style:normal;
+     font-weight:bold;
+     font-size:larger;
+}
+
+ul.past-games li.past-games__single{
+     display:grid;
+     grid-template-columns:auto 3em;
+     grid-template-rows : 0.5fr 1fr;
+}
+
+ul.past-games li.past-games__single span.past-games__single--game-play-btn{
+     grid-column: 2 / 3;
+     grid-row : 1 / 3;
+     align-self:center;
+}
+
+ul.past-games li.past-games__single h2.past-games__single--game-summary{
+     margin:0.5em 0px;
+}
+
+ul.past-games li.past-games__single h4.past-games__single--title{
+     margin:0px;
+}
+
+
 
