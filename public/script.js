@@ -142,6 +142,9 @@ const soundPanel = new SoundPanel({
      ]
 });
 
+soundPanel.disableSound('track');
+soundPanel.disableSound('sample');
+
 document.addEventListener('play-game-end-sound',()=>{
      soundPanel.playAudio('GAME-END-SOUND');
 })
