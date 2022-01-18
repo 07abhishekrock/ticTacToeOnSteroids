@@ -7,7 +7,6 @@ import CurrentPlayerBar from './CurrentPlayerBar';
 import GameEndModal from './GameEndModal';
 import { initialGameResult, initialTicTacToeState } from '../utils/constants';
 import { useLocation } from 'react-router-dom';
-import pushAudioEvent, { SoundEvents } from '../utils/soundPanel';
 
 type GameArenaProps = GameArenaCommonProps & {
      addMoves : (state : TicTacToeLayoutInterface)=>void,
@@ -34,7 +33,6 @@ function GameArena({
      const [resultBannerType , setResultBannerType] = useState<BannerResultStateType>(type === 'play' || location.state?.hideBannerOnStart ? 'NONE' : 'FINISH-GAME' );
 
      useEffect(()=>{
-          if(isInitialLayout(currentMove) && type==='play' && currentGameSession.gameState === GameState.PLAYING) pushAudioEvent(SoundEvents['GAME-START-SOUND'])
           if(!isInitialLayout(currentMove) && type === 'play'){
                addMoves(currentMove);
           }

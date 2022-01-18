@@ -12,6 +12,7 @@ import ReplayGameScreen from './pages/ReplayGameScreen';
 import Navbar from './components/Navbar';
 import { addGameSessionToLocalStorage, fetchDataFromLocalStorage } from './utils/localStorage';
 import HistoryScreen from './pages/HistoryScreen';
+import pushAudioEvent, { SoundEvents } from './utils/soundPanel';
 
 
 function App() {
@@ -92,6 +93,10 @@ function App() {
         type : 'ADD-GAME-SESSIONS',
         payload : allPastGameSessions
       })
+    }
+    if(action.type === 'ADD-PLAYERS'){
+      pushAudioEvent(SoundEvents['GAME-START-SOUND']);
+      dispatchToGlobalState(action);
     }
     else{
       dispatchToGlobalState(action);
